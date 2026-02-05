@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <h2 class="text-center mb-3">Tentang Sistem Optimasi Menu MBG</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+
+      <p>
+        Sistem ini merupakan aplikasi pendukung keputusan (Decision Support System) 
+        untuk membantu perencanaan distribusi Menu Makan Bergizi Gratis (MBG) 
+        pada satuan pendidikan berdasarkan anggaran yang diberikan pemerintah, 
+        jumlah siswa penerima manfaat, serta standar kebutuhan gizi minimal.
+      </p>
+
+      <p>
+        Tujuan utama sistem ini adalah menentukan kombinasi menu yang optimal 
+        sehingga kebutuhan gizi siswa (kalori, protein, dan lemak) dapat terpenuhi, 
+        anggaran tidak terlampaui, serta jumlah porsi yang dihasilkan menjadi maksimal.
+      </p>
+
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Permasalahan yang Diselesaikan
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>Setiap sekolah memiliki jumlah siswa yang berbeda sebagai penerima MBG.</li>
+        <li>Pemerintah memberikan anggaran maksimal untuk pengadaan menu MBG.</li>
+        <li>Setiap menu memiliki kandungan gizi (kalori, protein, lemak) dan biaya yang berbeda.</li>
+        <li>Kebutuhan gizi minimal siswa harus tetap terpenuhi.</li>
+        <li>Diperlukan sistem optimasi agar menu yang dipilih efisien dan adil bagi seluruh siswa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Model Optimasi yang Digunakan
+    </div>
+    <div class="card-body">
+      <p>
+        Sistem ini memodelkan permasalahan MBG sebagai persoalan Linear Programming (LP) 
+        dengan variabel keputusan berupa jumlah porsi setiap menu yang disediakan.
+      </p>
+
+      <p>
+        Fungsi tujuan sistem adalah memaksimalkan jumlah total porsi menu yang dapat dihasilkan 
+        dengan tetap memperhatikan batas anggaran dan kebutuhan gizi minimal siswa.
+      </p>
+
+      <p>
+        Kendala yang digunakan dalam model meliputi:
+      </p>
+
+      <ul>
+        <li>Kendala gizi minimal (kalori, protein, dan lemak).</li>
+        <li>Kendala anggaran maksimal.</li>
+        <li>Kendala non-negatif (jumlah porsi tidak boleh negatif).</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Metode Big M
+    </div>
+    <div class="card-body">
+      <p>
+        Metode Big M digunakan karena model memiliki kendala bertipe 
+        lebih besar atau sama dengan (≥) dan sama dengan (=) yang memerlukan 
+        penambahan variabel buatan (artificial variable) agar solusi awal feasible 
+        dapat diperoleh.
+      </p>
+
+      <p>
+        Variabel buatan diberikan penalti dengan nilai M yang sangat besar 
+        pada fungsi tujuan sehingga pada solusi optimal, variabel buatan akan 
+        dipaksa keluar dari basis dan tidak mempengaruhi solusi akhir.
+      </p>
+
+      <p>
+        Proses penyelesaian dilakukan dengan metode Simplex yang diintegrasikan 
+        dengan pendekatan Big M hingga diperoleh solusi optimal atau dinyatakan 
+        tidak feasible.
+      </p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Hasil yang Ditampilkan Sistem
+    </div>
+    <div class="card-body">
+      <p>
+        Sistem menampilkan hasil optimasi dalam bentuk:
+      </p>
+      <ul>
+        <li>Jumlah porsi optimal untuk setiap menu.</li>
+        <li>Rekomendasi menu paling optimal berdasarkan jumlah porsi terbesar.</li>
+        <li>Jumlah gizi rata-rata yang diterima setiap siswa (kalori, protein, dan lemak).</li>
+        <li>Model persamaan standar Big M.</li>
+        <li>Log iterasi tableau Simplex sebagai proses perhitungan.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header fw-bold">
+      Manfaat Sistem
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>Membantu sekolah dalam merencanakan distribusi menu MBG secara optimal.</li>
+        <li>Menjamin kebutuhan gizi minimal siswa tetap terpenuhi.</li>
+        <li>Menggunakan anggaran pemerintah secara efisien.</li>
+        <li>Mewujudkan prinsip kesetaraan dalam pemberian menu kepada seluruh siswa.</li>
+        <li>Memberikan dasar pengambilan keputusan berbasis perhitungan matematis.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="text-center mb-5">
+    <a href="/input" class="btn btn-primary">Mulai Input Data</a>
+    <a href="/" class="btn btn-secondary">Kembali ke Home</a>
+  </div>
+
+</div>
+{% endblock %}

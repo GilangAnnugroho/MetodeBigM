@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <h2 class="text-center mb-3">Input Data Menu, Gizi, Anggaran & Jumlah Siswa</h2>
+  <p class="text-center text-muted">
+    Masukkan data menu, kandungan gizi per porsi, berat per porsi, anggaran maksimal, dan jumlah siswa penerima MBG.
+    Nilai RHS (total kebutuhan) dihitung otomatis dari (standar per siswa) × (jumlah siswa).
+  </p>
+
+  <form method="POST" action="/solve">
+
+    <!-- ================= PARAMETER MODEL ================= -->
+    <div class="card mb-4">
+      <div class="card-header fw-bold">Parameter Model</div>
+      <div class="card-body row g-3">
+
+        <div class="col-md-4">
+          <label class="form-label">Tujuan Optimasi</label>
+          <select class="form-select" name="sense" required>
+            <option value="max">Maksimasi Jumlah Porsi</option>
+            <option value="min">Minimasi Biaya</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Jumlah Menu (Variabel)</label>
+          <input type="number" class="form-control" id="num_vars" value="3" min="1" required>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Jumlah Kendala Gizi</label>
+          <input type="number" class="form-control" id="num_constraints" value="3" min="1" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Anggaran Maksimal (Rp)</label>
+          <input type="number" class="form-control" name="budget" placeholder="Contoh: 2000000" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Jumlah Siswa</label>
+          <input type="number" class="form-control" id="students" name="students" placeholder="Contoh: 50" required>
+          <div class="form-text">RHS otomatis: (Standar per siswa) × (Jumlah siswa).</div>
+        </div>
+
+        <div class="col-12">
+          <button type="button" class="btn btn-primary" onclick="buildForm()">Buat Form Input</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DAFTAR MENU & HARGA + BERAT ================= -->
+    <div class="card mb-4">
+      <div class="card-header fw-bold">Daftar Menu, Harga & Berat per Porsi</div>
+      <div class="card-body" id="menu_section"></div>
+      <div class="card-footer text-muted">
+        Berat per porsi default dapat diisi 500 gram (sesuai asumsi porsi awal).
+      </div>
+    </div>
+
+    <!-- ================= KENDALA GIZI ================= -->
+    <div class="card mb-4">
+      <div class="card-header fw-bold">Kendala Gizi & Kapasitas</div>
+      <div class="card-body" id="constraints_section"></div>
+      <div class="card-footer text-muted">
+        Isi koefisien gizi menu dalam satuan yang konsisten (kkal/gram per porsi). Standar per siswa diisi per hari.
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-success btn-lg">Hitung Solusi Optimal</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+function safeNumber(x) {
+  const v = parseFloat(x);
+  return isNaN(v) ? 0 : v;
+}
+
+function updateAllRHS() {
+  const studentsEl = document.getElementById("students");
+  if (!studentsEl) return;
+  const S = safeNumber(studentsEl.value);
+
+  const reqInputs = document.querySelectorAll(".req-input");
+  reqInputs.forEach((reqEl) => {
+    const i = reqEl.getAttribute("data-i");
+    const rhsEl = document.getElementById(`rhs_${i}`);
+    if (!rhsEl) return;
+
+    const req = safeNumber(reqEl.value);
+    const rhs = req * S;
+
+    rhsEl.value = (Math.round(rhs * 100) / 100).toString();
+  });
+}
+
+function buildForm() {
+  const n = parseInt(document.getElementById("num_vars").value);
+  const m = parseInt(document.getElementById("num_constraints").value);
+
+  const menuSection = document.getElementById("menu_section");
+  const constraintsSection = document.getElementById("constraints_section");
+
+  // ================= MENU & HARGA & BERAT =================
+  let menuHTML = `
+    <div class="row fw-bold mb-2">
+      <div class="col-md-4">Nama Menu</div>
+      <div class="col-md-4">Harga / Biaya per Porsi (Rp)</div>
+      <div class="col-md-4">Berat per Porsi (gram)</div>
+    </div>
+  `;
+
+  for (let j = 0; j < n; j++) {
+    menuHTML += `
+      <div class="row mb-2">
+        <div class="col-md-4">
+          <input type="text" name="var_name[]" class="form-control" placeholder="Menu ${j+1}" required>
+        </div>
+        <div class="col-md-4">
+          <input type="number" name="c[]" class="form-control" placeholder="Biaya Menu ${j+1}" required>
+        </div>
+        <div class="col-md-4">
+          <input type="number" step="any" name="w[]" class="form-control" value="500" required>
+        </div>
+      </div>
+    `;
+  }
+  menuSection.innerHTML = menuHTML;
+
+  // ================= KENDALA GIZI =================
+  let constraintHTML = `
+    <div class="table-responsive">
+      <table class="table table-bordered text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nama Syarat</th>
+  `;
+
+  for (let j = 0; j < n; j++) {
+    constraintHTML += `<th>Menu ${j+1}</th>`;
+  }
+
+  constraintHTML += `
+            <th>Tanda</th>
+            <th>Standar per Siswa / Hari</th>
+            <th>Nilai Batas (RHS) Otomatis</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  for (let i = 0; i < m; i++) {
+    constraintHTML += `
+      <tr>
+        <td style="min-width:180px;">
+          <input type="text" class="form-control" name="constraint_name[]" placeholder="Contoh: Kalori" required>
+        </td>
+    `;
+
+    for (let j = 0; j < n; j++) {
+      constraintHTML += `
+        <td style="min-width:120px;">
+          <input type="number" step="any" name="A[${i}][${j}]" class="form-control" required>
+        </td>
+      `;
+    }
+
+    constraintHTML += `
+        <td style="min-width:120px;">
+          <select name="sign[]" class="form-select">
+            <option value=">=">&ge; (Minimal)</option>
+            <option value="<=">&le; (Maksimal)</option>
+            <option value="=">= (Tepat)</option>
+          </select>
+        </td>
+
+        <td style="min-width:180px;">
+          <input
+            type="number"
+            step="any"
+            name="req[]"
+            class="form-control req-input"
+            data-i="${i}"
+            placeholder="Contoh: 1590"
+            required
+          >
+          <div class="form-text">per siswa</div>
+        </td>
+
+        <td style="min-width:180px;">
+          <input
+            type="number"
+            step="any"
+            name="b[]"
+            class="form-control"
+            id="rhs_${i}"
+            readonly
+          >
+          <div class="form-text">otomatis</div>
+        </td>
+      </tr>
+    `;
+  }
+
+  constraintHTML += `
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  constraintsSection.innerHTML = constraintHTML;
+
+  // Event listener auto-update RHS
+  const studentsEl = document.getElementById("students");
+  if (studentsEl) {
+    studentsEl.removeEventListener("input", updateAllRHS);
+    studentsEl.addEventListener("input", updateAllRHS);
+  }
+
+  const reqInputs = document.querySelectorAll(".req-input");
+  reqInputs.forEach((el) => el.addEventListener("input", updateAllRHS));
+
+  updateAllRHS();
+}
+</script>
+
+{% endblock %}

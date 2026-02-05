@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <h2 class="text-center mb-3">Hasil Optimasi Menu MBG</h2>
+
+  <div class="alert alert-info text-center">
+    <strong>Status Solusi:</strong> {{ status | upper }}
+  </div>
+
+  <!-- INFORMASI DASAR -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">Informasi Dasar</div>
+    <div class="card-body">
+      <p><strong>Anggaran Maksimal:</strong> Rp {{ budget }}</p>
+      <p><strong>Jumlah Siswa:</strong> {{ students }} orang</p>
+
+      {% if mode == "max" %}
+        <p><strong>{{ objective_label }}:</strong> {{ total_portions }} porsi</p>
+      {% else %}
+        <p><strong>{{ objective_label }}:</strong> Rp {{ z }}</p>
+      {% endif %}
+
+      <p><strong>Total Biaya (berdasarkan solusi):</strong> Rp {{ total_cost }}</p>
+      <p><strong>Total Porsi (berdasarkan solusi):</strong> {{ total_portions }} porsi</p>
+    </div>
+  </div>
+
+  <!-- PORSI MENU -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">Jumlah Porsi Setiap Menu</div>
+    <div class="card-body">
+      <ul class="list-group">
+        {% for var in main_vars %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ var.label }}
+            <span class="badge bg-primary rounded-pill">{{ var.value }} porsi</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- REKOMENDASI -->
+  <div class="card mb-4 border-success">
+    <div class="card-header fw-bold bg-success text-white">Rekomendasi Menu Optimal</div>
+    <div class="card-body">
+      <p class="mb-0">{{ recommendation }}</p>
+    </div>
+  </div>
+
+  <!-- GIZI SEBELUM OPTIMASI (BASELINE) -->
+  <div class="card mb-4 border-secondary">
+    <div class="card-header fw-bold bg-light">
+      Gizi Sebelum Optimasi (Standar Kebutuhan per Siswa)
+    </div>
+    <div class="card-body">
+      <p class="text-muted mb-2">
+        Ini adalah standar kebutuhan gizi per siswa yang kamu input (baseline pembanding).
+      </p>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Kalori:</strong> {{ baseline_nutrition.kalori }} kkal / siswa</li>
+        <li class="list-group-item"><strong>Protein:</strong> {{ baseline_nutrition.protein }} gram / siswa</li>
+        <li class="list-group-item"><strong>Lemak:</strong> {{ baseline_nutrition.lemak }} gram / siswa</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GIZI SETELAH OPTIMASI -->
+  <div class="card mb-4 border-warning">
+    <div class="card-header fw-bold bg-warning">Gizi yang Diterima Setiap Siswa Setelah Optimasi</div>
+    <div class="card-body">
+      <p class="mb-2">
+        Total gizi hasil optimasi dibagi rata ke jumlah siswa (konsep kesetaraan).
+      </p>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Kalori:</strong> {{ nutrition.kalori }} kkal / siswa</li>
+        <li class="list-group-item"><strong>Protein:</strong> {{ nutrition.protein }} gram / siswa</li>
+        <li class="list-group-item"><strong>Lemak:</strong> {{ nutrition.lemak }} gram / siswa</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BERAT AWAL PER MENU -->
+  <div class="card mb-4 border-primary">
+    <div class="card-header fw-bold bg-primary text-white">Berat Satuan Awal per Menu (Sebelum Optimasi)</div>
+    <div class="card-body">
+      <p class="text-muted mb-2">Berat per porsi yang kamu input untuk setiap menu.</p>
+      <ul class="list-group">
+        {% for mw in menu_weights %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ mw.label }}
+            <span class="badge bg-dark rounded-pill">{{ mw.weight }} gram/porsi</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- BERAT AKHIR PER SISWA -->
+  <div class="card mb-4 border-info">
+    <div class="card-header fw-bold bg-info">Berat Porsi Akhir yang Diterima Setiap Siswa (Setelah Optimasi)</div>
+    <div class="card-body">
+      <p class="mb-2">
+        Karena total porsi hasil optimasi bisa lebih besar dari jumlah siswa, maka total berat makanan juga dibagi rata ke seluruh siswa.
+      </p>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Total Berat Produksi:</strong> {{ weight_info.total_weight_gram }} gram</li>
+        <li class="list-group-item"><strong>Rata-rata Berat per Porsi (hasil mix):</strong> {{ weight_info.avg_weight_per_portion }} gram/porsi</li>
+        <li class="list-group-item"><strong>Rasio Total Porsi : Siswa</strong> = {{ total_portions }} : {{ students }} (≈ {{ weight_info.ratio_portion }} : 1)</li>
+        <li class="list-group-item"><strong>Berat yang Diterima per Siswa:</strong> {{ weight_info.weight_per_student_gram }} gram / siswa</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODEL BIG M -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">Model Persamaan Standar (Metode Big M)</div>
+    <div class="card-body">
+      <pre class="mb-0">
+{% for line in eq_text %}
+{{ line }}{% if not loop.last %}&#10;{% endif %}
+{% endfor %}
+      </pre>
+    </div>
+  </div>
+
+  <!-- LOG ITERASI -->
+  <div class="card mb-4">
+    <div class="card-header fw-bold">Log Iterasi Metode Big M (Tableau Simplex)</div>
+    <div class="card-body">
+      {% for log in logs %}
+        <div class="mb-4">
+          <h5>Iterasi {{ log.iter }}</h5>
+          <p><em>{{ log.note }}</em></p>
+
+          {% if log.enter and log.leave %}
+            <p>Variabel Masuk: <strong>{{ log.enter }}</strong>, Variabel Keluar: <strong>{{ log.leave }}</strong></p>
+          {% endif %}
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center align-middle">
+              <thead class="table-dark">
+                <tr>
+                  {% for col in log.columns %}
+                    <th>{{ col }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in log.rows %}
+                  <tr>
+                    {% for col in log.columns %}
+                      <td>{{ row[col] }}</td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <hr>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="text-center mb-5">
+    <a href="/input" class="btn btn-primary">Input Data Baru</a>
+    <a href="/" class="btn btn-secondary">Kembali ke Home</a>
+  </div>
+
+</div>
+{% endblock %}
