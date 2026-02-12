@@ -1,8 +1,7 @@
 Sistem Optimasi Menu MBG (Metode Big M)
 Aplikasi berbasis web untuk menghitung optimasi porsi menu MBG (Makan Bergizi Gratis) berdasarkan anggaran dan standar gizi menggunakan algoritma Big M (Simplex)
 --------------------------------------------------------------------------------------------------
-🌐 Link Aplikasi (Live Demo)
-Aplikasi sudah online dan bisa langsung digunakan tanpa perlu instalasi:
+🌐 Live Demo
 👉 https://metodebigm.pythonanywhere.com
 
 🛠️ Cara Menggunakan di Laptop (Localhost)
