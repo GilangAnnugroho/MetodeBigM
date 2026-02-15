@@ -1,4 +1,3 @@
-
 ```markdown
 <div align="center">
 
@@ -149,4 +148,10 @@ Kami sangat terbuka untuk kolaborasi! Jika Anda ingin mengembangkan fitur baru:
 
 **OPTIMASI MENU MBG** © 2026 • Dilindungi oleh Lisensi [MIT](https://opensource.org/licenses/MIT).
 
+<small>Dibuat dengan ❤️ oleh Mahasiswa Teknik Informatika UMC.</small>
+
 </div>
+
+```
+
+```
