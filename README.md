@@ -1,7 +1,9 @@
+
+
 ```markdown
 <div align="center">
 
-# 🥗 OPTIMASI MENU MBG (BIG M)
+# 🥗 OPTIMASI MENU MBG
 **Sistem Pendukung Keputusan Penentuan Porsi Makan Bergizi Gratis**
 
 ![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -13,18 +15,18 @@
 <p align="center">
   <b>Solusi Cerdas Pemenuhan Gizi:</b><br>
   Menghitung kombinasi menu makanan optimal berdasarkan anggaran dan standar gizi<br>
-  menggunakan <i>Algoritma Big M (Simplex).</i>
+  menggunakan <i>Algoritma Big M (Simplex) — Cepat & Akurat.</i>
 </p>
 
-[Fitur Utama](#-fitur-unggulan) • [Teknologi](#-teknologi) • [Instalasi](#-panduan-instalasi-cepat) • [Live Demo](#-akses-demo)
+[Fitur Utama](#-fitur-unggulan) • [Teknologi](#-teknologi) • [Instalasi](#-panduan-instalasi-cepat) • [Demo](#-akses-demo)
 
 </div>
 
 ---
 
-## 📖 Tentang Aplikasi
+## 🔳 Tentang Aplikasi
 
-**Sistem Optimasi Menu MBG** adalah aplikasi berbasis web yang dirancang untuk membantu nutrisionis atau penyedia layanan katering dalam program *Makan Bergizi Gratis*. Sistem ini menerapkan metode *Operations Research* (Linear Programming) untuk meminimalkan biaya produksi per porsi tanpa mengurangi standar nilai gizi (Protein, Karbohidrat, Lemak, dll) yang telah ditetapkan.
+**Sistem Optimasi Menu MBG** adalah solusi perangkat lunak berbasis web yang dirancang khusus untuk nutrisionis dan penyedia layanan katering program *Makan Bergizi Gratis*. Sistem ini mentransformasi perhitungan manual menjadi digital, memastikan setiap porsi memenuhi standar gizi (Protein, Karbohidrat, Lemak) dengan biaya produksi yang paling efisien (minimum cost) menggunakan pendekatan *Operations Research*.
 
 ---
 
@@ -32,20 +34,20 @@
 
 | Modul | Deskripsi & Fungsionalitas |
 | :--- | :--- |
-| **📝 Input Variabel & Kendala** | • **Fleksibilitas Data:** Input bahan makanan (variabel keputusan) dan harga secara dinamis.<br>• **Batasan Gizi:** Tentukan batasan minimum/maksimum nutrisi sebagai fungsi kendala (`Constraint`). |
-| **🧮 Big M Solver Engine** | • **Algoritma Presisi:** Menggunakan metode Big M untuk menangani kendala "lebih besar dari" ($\ge$) dan "sama dengan" ($=$).<br>• **Matriks Otomatis:** Konversi input user menjadi tabel simpleks secara *backend*. |
-| **📊 Analisa Hasil** | • **Solusi Optimal:** Menampilkan jumlah porsi eksak untuk setiap jenis makanan.<br>• **Total Cost:** Kalkulasi biaya termurah yang memenuhi semua syarat gizi.<br>• **Status Solver:** Indikator apakah solusi *feasible* atau *infeasible*. |
+| **📝 Input & Kendala** | • **Manajemen Variabel:** Input dinamis untuk jenis makanan & harga bahan.<br>• **Fleksibilitas Constraint:** Atur batasan gizi minimum/maksimum sesuai kebutuhan (`Constraint`).<br>• **Validasi Data:** Pengecekan input otomatis sebelum diproses. |
+| **🧮 Big M Engine** | • **Algoritma Presisi:** Implementasi metode Big M untuk menangani kendala $\ge$ dan $=$.<br>• **Matriks Otomatis:** Konversi model matematika ke tabel simpleks secara *backend*.<br>• **Iterasi Cepat:** Proses perhitungan optimasi dalam hitungan detik. |
+| **📊 Analisa Hasil** | • **Solusi Optimal:** Menampilkan jumlah porsi eksak untuk setiap menu.<br>• **Kalkulasi Biaya:** Total anggaran termurah yang memenuhi syarat gizi.<br>• **Status Solver:** Indikator visual apakah solusi *feasible* atau *infeasible*. |
 
 ---
 
 ## 🛠 Teknologi
 
-Project ini dibangun menggunakan stack Python yang powerful untuk komputasi numerik:
+Project ini dibangun menggunakan fondasi teknologi Python modern yang powerful untuk komputasi numerik:
 
-* **Backend Framework:** `Flask` (Microframework Python)
-* **Computational Core:** `NumPy` & `Pandas` (Matriks & Data Processing)
+* **Backend Core:** `Flask 3.0` (Microframework Python)
+* **Computational:** `NumPy` & `Pandas` (Matrix Operations)
+* **Frontend Asset:** `HTML5`, `CSS3` (Jinja2 Templates)
 * **Web Server:** `Gunicorn` (Production Ready)
-* **Frontend:** `HTML5`, `CSS3`, `Jinja2 Templates`
 * **Deployment:** `PythonAnywhere`
 
 ---
@@ -57,8 +59,8 @@ Ikuti langkah-langkah berikut untuk menjalankan project di local environment And
 ### 1. Persiapan Awal
 Pastikan komputer Anda sudah terinstall: `Python >= 3.x` dan `Git`.
 
-### 2. Clone & Setup Environment
-Salin repository dan buat virtual environment agar library terisolasi:
+### 2. Clone & Install Dependencies
+Salin repository dan install library yang dibutuhkan:
 
 ```bash
 # Clone repository
@@ -67,6 +69,16 @@ git clone [https://github.com/USERNAME-KAMU/repo-metode-bigm.git](https://github
 # Masuk ke direktori project
 cd "PROGRAM METODE BIG M"
 
+# Install Dependencies
+pip install -r requirements.txt
+
+```
+
+### 3. Konfigurasi Environment (Opsional)
+
+Disarankan menggunakan virtual environment agar library terisolasi:
+
+```bash
 # Buat Virtual Environment (Windows)
 python -m venv .venv
 .venv\Scripts\activate
@@ -77,22 +89,12 @@ source .venv/bin/activate
 
 ```
 
-### 3. Install Dependencies
-
-Install library matematika dan framework yang dibutuhkan:
-
-```bash
-pip install -r requirements.txt
-
-```
-
-*Pastikan `requirements.txt` berisi: Flask, numpy, pandas, gunicorn.*
-
 ### 4. Menjalankan Server
 
-Jalankan aplikasi Flask:
+Jalankan perintah berikut untuk memulai aplikasi Flask:
 
 ```bash
+# Jalankan aplikasi
 python app.py
 
 ```
@@ -134,7 +136,7 @@ Anda dapat mencoba aplikasi secara langsung tanpa instalasi melalui tautan berik
 
 ## 🤝 Kontribusi
 
-Kami sangat terbuka untuk kolaborasi! Jika Anda ingin mengembangkan fitur baru:
+Kami sangat terbuka untuk kolaborasi! Jika Anda ingin berkontribusi:
 
 1. **Fork** repository ini.
 2. Buat branch fitur baru: `git checkout -b fitur-algoritma-baru`.
