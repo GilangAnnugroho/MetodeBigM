@@ -1,7 +1,3 @@
-Tentu, ini adalah draft **README.md** yang profesional dan terstruktur, disesuaikan dengan struktur folder di screenshot dan deskripsi yang kamu berikan.
-
-Silakan salin kode di bawah ini ke dalam file `README.md` kamu.
-
 ```markdown
 # 🥗 Sistem Optimasi Menu MBG (Metode Big M)
 
@@ -14,6 +10,7 @@ Silakan salin kode di bawah ini ke dalam file `README.md` kamu.
 Project ini bertujuan untuk membantu pengambilan keputusan dalam menentukan kombinasi menu makanan yang memenuhi standar gizi (seperti protein, karbohidrat, lemak) dengan biaya yang paling optimal (minimum cost) menggunakan pendekatan *Operations Research*.
 
 ## 🔗 Live Demo
+
 Coba aplikasi secara langsung di sini:
 👉 **[https://metodebigm.pythonanywhere.com](https://metodebigm.pythonanywhere.com)**
 
@@ -25,15 +22,13 @@ Project ini dibangun menggunakan stack berikut:
 
 * **Bahasa Pemrograman:** Python
 * **Web Framework:** Flask
-* **Komputasi Numerik:** NumPy & Pandas (Untuk manipulasi matriks dan data iterasi Simplex)
+* **Komputasi Numerik:** NumPy & Pandas (Untuk manipulasi matriks dan iterasi Simplex)
 * **Web Server (Production):** Gunicorn
 * **Frontend:** HTML5, CSS (Jinja2 Templates)
 
 ---
 
 ## 📂 Struktur Project
-
-Berdasarkan struktur folder repository:
 
 ```text
 PROGRAM METODE BIG M/
@@ -43,12 +38,12 @@ PROGRAM METODE BIG M/
 │   ├── about.html         # Halaman Tentang Aplikasi
 │   ├── base.html          # Base layout (Navbar/Footer)
 │   ├── home.html          # Halaman Utama
-│   ├── input.html         # Form Input Data (Gizi/Harga)
+│   ├── input.html         # Form Input Variabel & Kendala
 │   └── result.html        # Halaman Hasil Optimasi
 │
 ├── app.py                 # Main application file (Flask Routes)
 ├── big_m_solver.py        # Core Logic Algoritma Big M
-├── requirements.txt       # Daftar pustaka/library
+├── requirements.txt       # Daftar pustaka (Flask, numpy, pandas, gunicorn)
 └── README.md              # Dokumentasi Project
 
 ```
@@ -59,43 +54,51 @@ PROGRAM METODE BIG M/
 
 Ikuti langkah-langkah ini untuk menjalankan project di komputer kamu sendiri:
 
-1. **Clone Repository**
+### 1. Clone Repository
+
 ```bash
 git clone [https://github.com/username-anda/repo-ini.git](https://github.com/username-anda/repo-ini.git)
 cd "PROGRAM METODE BIG M"
 
 ```
 
+### 2. Setup Virtual Environment
 
-2. **Buat Virtual Environment (Opsional tapi disarankan)**
+Disarankan menggunakan virtual environment agar library tidak bentrok.
+
+**Windows:**
+
 ```bash
-# Untuk Windows
 python -m venv .venv
 .venv\Scripts\activate
 
-# Untuk Mac/Linux
+```
+
+**Mac/Linux:**
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 
 ```
 
+### 3. Install Dependencies
 
-3. **Install Dependencies**
-Pastikan kamu sudah menginstall semua library yang dibutuhkan:
+Install library yang diperlukan (Flask, NumPy, Pandas, Gunicorn):
+
 ```bash
 pip install -r requirements.txt
 
 ```
 
+### 4. Jalankan Aplikasi
 
-4. **Jalankan Aplikasi**
 ```bash
 python app.py
 
 ```
 
-
-Aplikasi akan berjalan di `http://127.0.0.1:5000/`
+Aplikasi akan berjalan di `http://127.0.0.1:5000/`.
 
 ---
 
@@ -103,7 +106,9 @@ Aplikasi akan berjalan di `http://127.0.0.1:5000/`
 
 1. Buka halaman **Home** untuk melihat ringkasan aplikasi.
 2. Masuk ke menu **Input Data** (atau *Hitung Optimasi*).
-3. Masukkan variabel keputusan (jenis makanan), fungsi tujuan (minimasi biaya), dan fungsi kendala (kebutuhan gizi minimum).
-4. Klik tombol **Hitung**.
-5. Sistem akan memproses menggunakan algoritma Big M di `big_m_solver.py`.
-6. Hasil porsi optimal dan total biaya akan ditampilkan di halaman **Result**.
+3. Masukkan **Variabel Keputusan** (misal: Nasi, Ayam, Sayur).
+4. Tentukan **Fungsi Tujuan** (Minimasi Biaya/Harga per porsi).
+5. Masukkan **Fungsi Kendala** (Kebutuhan Gizi Minimum).
+6. Klik tombol **Hitung**.
+7. Sistem akan memproses menggunakan algoritma Big M di `big_m_solver.py`.
+8. Hasil porsi optimal dan total biaya akan ditampilkan di halaman **Result**.
