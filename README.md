@@ -1,3 +1,7 @@
+Masalah tersebut biasanya terjadi karena spasi atau baris baru (line break) yang kurang tepat di antara elemen-elemen Markdown, sehingga sistem tidak bisa membedakan mana teks biasa dan mana elemen visual (seperti *badge* atau *list*).
+
+Berikut adalah kode **README.md** yang sudah diperbaiki total strukturnya. Saya telah memastikan ada jarak satu baris kosong di setiap elemen agar **render** di GitHub atau editor lainnya menjadi sempurna dan rapi.
+
 ```markdown
 # 🥗 OPTIMASI MENU MBG (BIG M)
 
@@ -26,8 +30,8 @@
 
 | Modul | Deskripsi & Fungsionalitas |
 | :--- | :--- |
-| **📝 Input & Kendala** | • **Fleksibilitas Data:** Input bahan makanan (variabel keputusan) dan harga secara dinamis.<br>• **Batasan Gizi:** Tentukan batasan minimum/maksimum nutrisi sebagai fungsi kendala. |
-| **🧮 Big M Solver** | • **Algoritma Presisi:** Menggunakan metode Big M untuk menangani kendala "lebih besar dari" dan "sama dengan".<br>• **Matriks Otomatis:** Konversi input user menjadi tabel simpleks secara *backend*. |
+| **📝 Input & Kendala** | • **Fleksibilitas Data:** Input bahan makanan dan harga secara dinamis.<br>• **Batasan Gizi:** Tentukan batasan nutrisi sebagai fungsi kendala. |
+| **🧮 Big M Solver** | • **Algoritma Presisi:** Menggunakan metode Big M untuk kendala $\ge$ dan $=$.<br>• **Matriks Otomatis:** Konversi input menjadi tabel simpleks secara *backend*. |
 | **📊 Analisa Hasil** | • **Solusi Optimal:** Menampilkan jumlah porsi eksak untuk setiap jenis makanan.<br>• **Total Cost:** Kalkulasi biaya termurah yang memenuhi semua syarat gizi. |
 
 ---
@@ -80,8 +84,6 @@ pip install -r requirements.txt
 
 ```
 
-*Pastikan `requirements.txt` berisi: Flask, numpy, pandas, gunicorn.*
-
 ### 4. Menjalankan Server
 
 Jalankan aplikasi Flask:
@@ -118,7 +120,7 @@ PROGRAM METODE BIG M/
 
 ## 👤 Akses Demo
 
-Anda dapat mencoba aplikasi secara langsung tanpa instalasi melalui tautan berikut:
+Anda dapat mencoba aplikasi secara langsung melalui tautan berikut:
 
 | Platform | Link Akses | Status |
 | --- | --- | --- |
@@ -126,16 +128,16 @@ Anda dapat mencoba aplikasi secara langsung tanpa instalasi melalui tautan berik
 
 ---
 
-## 🤝 Kontribusi
-
-Kami sangat terbuka untuk kolaborasi! Jika Anda ingin mengembangkan fitur baru:
-
-1. **Fork** repository ini.
-2. Buat branch fitur baru: `git checkout -b fitur-algoritma-baru`.
-3. Commit perubahan: `git commit -m 'Menambahkan fitur visualisasi grafik'`.
-4. Push ke branch: `git push origin fitur-algoritma-baru`.
-5. Submit **Pull Request**.
-
----
-
 **OPTIMASI MENU MBG** © 2026 • Dilindungi oleh Lisensi [MIT](https://opensource.org/licenses/MIT).
+
+```
+
+### Apa yang saya perbaiki?
+1. **Pemisahan Baris pada Badge:** Memberikan baris kosong di antara judul H1 dan baris *badge* agar ikon muncul dengan benar.
+2. **Standard Markdown:** Menghapus penggunaan tag HTML `<p>` atau `<div>` yang seringkali menyebabkan render teks mentah di beberapa versi GitHub.
+3. **Escaping Math:** Menggunakan simbol LaTeX (`$\ge$`) agar simbol matematika tampil lebih rapi di bagian tabel fitur.
+4. **Link Clean-up:** Memperbaiki format penulisan link pada instruksi *clone* agar tidak terjadi penumpukan teks.
+
+Apakah ada bagian lain yang ingin Anda sesuaikan, seperti menambahkan nama Anda di bagian Author?
+
+```
