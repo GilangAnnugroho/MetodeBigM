@@ -17,7 +17,7 @@
 
 ## 📖 Tentang Aplikasi
 
-**Sistem Optimasi Menu MBG** adalah aplikasi berbasis web yang dirancang khusus untuk nutrisionis atau penyedia layanan katering program *Makan Bergizi Gratis*. Sistem ini mentransformasi proses manual menjadi digital, memastikan setiap porsi memenuhi standar gizi (Protein, Karbohidrat, Lemak) dengan biaya produksi yang paling efisien (minimum cost).
+**Sistem Optimasi Menu MBG** adalah aplikasi berbasis web yang dirancang khusus untuk membantu nutrisionis atau penyedia layanan katering program *Makan Bergizi Gratis*. Sistem ini menerapkan metode *Operations Research* (Linear Programming) untuk meminimalkan biaya produksi per porsi tanpa mengurangi standar nilai gizi (Protein, Karbohidrat, Lemak) yang telah ditetapkan.
 
 ---
 
@@ -35,10 +35,10 @@
 
 Project ini dibangun menggunakan stack Python modern yang powerful untuk komputasi numerik:
 
-* **Backend Framework:** `Flask 3.0` (Microframework Python)
+* **Backend Framework:** `Flask`
 * **Computational:** `NumPy` & `Pandas` (Matrix Operations)
 * **Frontend Asset:** `HTML5`, `CSS3` (Jinja2 Templates)
-* **Web Server:** `Gunicorn` (Production Ready)
+* **Web Server:** `Gunicorn`
 * **Deployment:** `PythonAnywhere`
 
 ---
@@ -92,7 +92,7 @@ PROGRAM METODE BIG M/
 │   └── home.html          # Halaman Depan
 ├── app.py                 # 🔗 Routing & Controller Flask
 ├── big_m_solver.py        # 🧠 Core Logic Algoritma Big M
-├── requirements.txt       # 📦 Daftar Library
+├── requirements.txt       # 📦 Daftar Library (Flask, numpy, pandas, gunicorn)
 └── README.md              # 📖 Dokumentasi Project
 
 ```
@@ -128,6 +128,3 @@ Kami sangat terbuka untuk kolaborasi! Jika Anda ingin berkontribusi:
 
 </div>
 
-
-
-```
