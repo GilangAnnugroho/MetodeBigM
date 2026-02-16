@@ -4,6 +4,7 @@
 ![Flask](https://img.shields.io/badge/Flask-3.0-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 **Sistem Pendukung Keputusan Penentuan Porsi Makan Bergizi Gratis**
@@ -38,7 +39,7 @@ Project ini dibangun menggunakan stack Python modern yang powerful untuk komputa
 * **Backend Framework:** `Flask`
 * **Computational:** `NumPy` & `Pandas` (Matrix Operations)
 * **Frontend Asset:** `HTML5`, `CSS3` (Jinja2 Templates)
-* **Web Server:** `Gunicorn`
+* **Web Server:** `Gunicorn` (Production WSGI)
 * **Deployment:** `PythonAnywhere`
 
 ---
@@ -109,22 +110,13 @@ Anda dapat mencoba aplikasi secara langsung melalui tautan berikut:
 
 ---
 
-## 🤝 Kontribusi
-
-Kami sangat terbuka untuk kolaborasi! Jika Anda ingin berkontribusi:
-
-1. **Fork** repository ini.
-2. Buat branch fitur baru: `git checkout -b fitur-baru`.
-3. Commit perubahan: `git commit -m 'Menambahkan fitur baru'`.
-4. Submit **Pull Request**.
-
----
-
 <div align="center">
 
 **OPTIMASI MENU MBG** © 2026 • Dilindungi oleh Lisensi [MIT](https://opensource.org/licenses/MIT).
 
-<small>Dibuat dengan ❤️ oleh Mahasiswa Teknik Informatika UMC.</small>
-
 </div>
 
+
+Ingin saya bantu buatkan isi file `requirements.txt`-nya juga agar tinggal Anda simpan?
+
+```
