@@ -1,4 +1,8 @@
-# 🥗 OPTIMASI MENU MBG (BIG M)
+
+<div align="center">
+
+# 🥗 SISTEM OPTIMASI MENU MBG (BIG M)
+**Decision Support System for Nutritious Meal Distribution Optimization**
 
 ![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.0-000000?style=for-the-badge&logo=flask&logoColor=white)
@@ -7,18 +11,23 @@
 ![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-**Sistem Pendukung Keputusan Penentuan Porsi Makan Bergizi Gratis**
+<p align="center">
+  <b>Implementasi Riset Operasi Modern:</b><br>
+  Optimasi porsi menu Makan Bergizi Gratis (MBG) menggunakan <i>Linear Programming</i><br>
+  dengan pendekatan <i>Metode Big M (Simplex)</i> untuk pemenuhan gizi maksimal & biaya efisien.
+</p>
 
-> **Solusi Cerdas Pemenuhan Gizi:**
-> Menghitung kombinasi menu makanan optimal berdasarkan anggaran dan standar gizi menggunakan *Algoritma Big M (Simplex)*.
+[Fitur Utama](#-fitur-unggulan) • [Alur Sistem](#-alur-logika-optimasi) • [Teknologi](#-teknologi) • [Instalasi](#-panduan-instalasi) • [Demo](#-akses-demo)
 
-[Fitur Utama](#-fitur-unggulan) • [Teknologi](#-teknologi) • [Instalasi](#-panduan-instalasi-cepat) • [Live Demo](#-akses-demo)
+</div>
 
 ---
 
-## 📖 Tentang Aplikasi
+## 📖 Tentang Proyek
 
-**Sistem Optimasi Menu MBG** adalah aplikasi berbasis web yang dirancang khusus untuk membantu nutrisionis atau penyedia layanan katering program *Makan Bergizi Gratis*. Sistem ini menerapkan metode *Operations Research* (Linear Programming) untuk meminimalkan biaya produksi per porsi tanpa mengurangi standar nilai gizi (Protein, Karbohidrat, Lemak) yang telah ditetapkan.
+**Sistem Optimasi Menu MBG** adalah aplikasi pendukung keputusan (*Decision Support System*) yang dirancang khusus untuk membantu institusi pendidikan atau penyedia katering dalam merencanakan distribusi makanan bergizi bagi siswa. 
+
+Aplikasi ini menyelesaikan kompleksitas penentuan jumlah porsi yang ideal di tengah keterbatasan anggaran pemerintah, variasi kebutuhan gizi (kalori, protein, lemak), serta jumlah siswa yang dinamis. Dengan mesin *solver* berbasis **Metode Big M**, sistem ini menjamin solusi matematis yang paling akurat untuk setiap parameter yang diberikan.
 
 ---
 
@@ -26,83 +35,109 @@
 
 | Modul | Deskripsi & Fungsionalitas |
 | :--- | :--- |
-| **📝 Input & Kendala** | • **Manajemen Variabel:** Input dinamis untuk jenis makanan & harga bahan.<br>• **Fleksibilitas Constraint:** Atur batasan gizi minimum/maksimum sesuai kebutuhan. |
-| **🧮 Big M Engine** | • **Algoritma Presisi:** Implementasi metode Big M untuk menangani kendala $\ge$ dan $=$.<br>• **Matriks Otomatis:** Konversi model matematika ke tabel simpleks secara *backend*. |
-| **📊 Analisa Hasil** | • **Solusi Optimal:** Menampilkan jumlah porsi eksak untuk setiap menu.<br>• **Total Cost:** Kalkulasi biaya termurah yang memenuhi semua syarat gizi. |
+| **🧮 Big M Solver Engine** | Implementasi murni algoritma Simplex Big M untuk menangani kendala bertipe $\ge$ dan $=$. |
+| **🔄 Auto-Calculated RHS** | Menghitung otomatis *Right-Hand Side* (Batas Kebutuhan) dari (Standar per Siswa × Jumlah Siswa). |
+| **📈 Multi-Objective Analysis** | Mendukung dua mode: **Minimasi Biaya** (Efisiensi) atau **Maksimasi Porsi** (Kuantitas). |
+| **⚖️ Weight Analysis** | Perhitungan berat porsi akhir yang diterima siswa (gram) berdasarkan hasil pencampuran menu optimal. |
+| **📜 Transparent Solver Logs** | Visualisasi langkah-demi-langkah tabel Simplex (Tableau) untuk audit perhitungan matematis. |
+
+---
+
+## 🧠 Alur Logika Optimasi
+
+Sistem memodelkan permasalahan MBG ke dalam bentuk standar Linear Programming:
+
+1. **Variabel Keputusan ($X_n$):** Jumlah porsi untuk setiap menu yang tersedia.
+2. **Fungsi Tujuan:** * Minimasi: $\min Z = \sum (cost_j \cdot X_j)$
+   * Maksimasi: $\max Z = \sum X_j$
+3. **Fungsi Kendala:**
+   * Kebutuhan Gizi: $\sum (gizi_j \cdot X_j) \ge standar\_total$
+   * Kapasitas Anggaran: $\sum (cost_j \cdot X_j) \le budget$
+   * Non-negativitas: $X_j \ge 0$
+
 
 ---
 
 ## 🛠 Teknologi
 
-Project ini dibangun menggunakan stack Python modern yang powerful untuk komputasi numerik:
+Dibangun menggunakan teknologi pilihan yang fokus pada performa komputasi dan kemudahan akses web:
 
-* **Backend Framework:** `Flask`
-* **Computational:** `NumPy` & `Pandas` (Matrix Operations)
-* **Frontend Asset:** `HTML5`, `CSS3` (Jinja2 Templates)
-* **Web Server:** `Gunicorn` (Production WSGI)
-* **Deployment:** `PythonAnywhere`
+* **Backend Core:** `Python 3.10+`
+* **Computational Library:** `NumPy` (Optimasi Matriks) & `Pandas` (Struktur Data Log)
+* **Web Framework:** `Flask 3.0` (Routing & Templating)
+* **Frontend:** `Bootstrap 5.3` & `Jinja2` (Responsive Design)
+* **Production Server:** `Gunicorn` (WSGI Server)
 
 ---
 
-## 🚀 Panduan Instalasi Cepat
+## 📂 Struktur Direktori
 
-Ikuti langkah-langkah berikut untuk menjalankan project di local environment Anda:
+```text
+PROGRAM METODE BIG M/
+├── app.py                 # 🎮 Flask Controller (Routing & Logic Parsing)
+├── big_m_solver.py        # 🧠 Core Algoritma Big M & Simplex Solver
+├── requirements.txt       # 📦 Dependencies (flask, numpy, pandas, gunicorn)
+├── templates/             # 🎨 UI Design (Jinja2)
+│   ├── base.html          # Layout Master
+│   ├── home.html          # Landing Page
+│   ├── input.html         # Form Parameter & Kendala Dinamis
+│   ├── result.html        # Dashboard Hasil & Log Iterasi
+│   └── about.html         # Dokumentasi Metodologi
+└── static/                # 🖼️ Assets (CSS, Image)
 
-### 1. Persiapan Awal
-Pastikan komputer Anda sudah terinstall: `Python >= 3.x` dan `Git`.
+```
 
-### 2. Clone & Install Dependencies
-Salin repository dan install library yang dibutuhkan:
+---
+
+## 🚀 Panduan Instalasi
+
+Ikuti langkah-langkah berikut untuk menjalankan sistem di lingkungan lokal:
+
+### 1. Persiapan Environment
 
 ```bash
 # Clone repository
-git clone [https://github.com/USERNAME-KAMU/repo-metode-bigm.git](https://github.com/USERNAME-KAMU/repo-metode-bigm.git)
-
-# Masuk ke direktori project
+git clone [https://github.com/USERNAME/repo-metode-bigm.git](https://github.com/USERNAME/repo-metode-bigm.git)
 cd "PROGRAM METODE BIG M"
 
-# Install Dependencies
+# Membuat virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
+
+```
+
+### 2. Install Dependensi
+
+```bash
 pip install -r requirements.txt
 
 ```
 
-### 3. Jalankan Server
-
-Jalankan perintah berikut untuk memulai aplikasi Flask:
+### 3. Jalankan Aplikasi
 
 ```bash
 python app.py
 
 ```
 
-🚀 **Aplikasi siap diakses di:** `http://127.0.0.1:5000`
+Akses sistem melalui browser di: `http://127.0.0.1:5000`
 
 ---
 
-## 📂 Struktur Direktori Utama
+## 📊 Hasil & Rekomendasi
 
-Berikut adalah peta struktur folder untuk memudahkan navigasi kode:
+Sistem ini memberikan *output* yang sangat mendetail bagi pengambil keputusan:
 
-```text
-PROGRAM METODE BIG M/
-├── .venv/                 # 🔒 Environment Python
-├── templates/             # 🎨 Tampilan Frontend
-│   ├── base.html          # Layout Utama
-│   ├── input.html         # Form Input Variabel & Kendala
-│   ├── result.html        # Halaman Hasil Optimasi
-│   └── home.html          # Halaman Depan
-├── app.py                 # 🔗 Routing & Controller Flask
-├── big_m_solver.py        # 🧠 Core Logic Algoritma Big M
-├── requirements.txt       # 📦 Daftar Library (Flask, numpy, pandas, gunicorn)
-└── README.md              # 📖 Dokumentasi Project
-
-```
+* **Analisis Baseline vs Aktual:** Perbandingan gizi sebelum dan sesudah optimasi per siswa.
+* **Informasi Berat Porsi:** Estimasi berat makanan yang akan diterima setiap siswa secara adil.
+* **Log Matematis:** Setiap iterasi pivot ditunjukkan untuk keperluan validasi data.
 
 ---
 
 ## 👤 Akses Demo
 
-Anda dapat mencoba aplikasi secara langsung melalui tautan berikut:
+Aplikasi ini telah dideploy dan dapat diakses secara langsung melalui:
 
 | Platform | Link Akses | Status |
 | --- | --- | --- |
@@ -112,11 +147,18 @@ Anda dapat mencoba aplikasi secara langsung melalui tautan berikut:
 
 <div align="center">
 
-**OPTIMASI MENU MBG** © 2026 • Dilindungi oleh Lisensi [MIT](https://opensource.org/licenses/MIT).
+**Sistem Optimasi Menu MBG** © 2026 • Dilindungi oleh Lisensi [MIT](https://opensource.org/licenses/MIT).
+
+<small>Dibuat dengan ❤️ oleh Mahasiswa Teknik Informatika UMC — Solusi Digital untuk Gizi Bangsa.</small>
 
 </div>
 
-
-Ingin saya bantu buatkan isi file `requirements.txt`-nya juga agar tinggal Anda simpan?
-
 ```
+
+**Informasi Penting dalam README ini:**
+
+1.  [cite_start]**Badges:** Menambahkan Gunicorn sesuai diskusi sebelumnya[cite: 1].
+2.  [cite_start]**Alur Logika:** Menjelaskan secara teknis bagaimana program bekerja (Linear Programming)[cite: 1].
+3.  [cite_start]**Struktur Direktori:** Memetakan file sesuai dengan daftar file yang Anda lampirkan[cite: 1].
+4.  [cite_start]**Visualiasi Gizi:** Menjelaskan fitur perbandingan gizi baseline vs aktual yang ada di file `result.html`[cite: 1].
+5.  [cite_start]**Auto-Calculated RHS:** Menyoroti keunggulan fitur input otomatis yang ada pada `input.html`[cite: 1].
