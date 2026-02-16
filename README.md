@@ -1,4 +1,3 @@
-
 <div align="center">
 
 # 🥗 SISTEM OPTIMASI MENU MBG (BIG M)
@@ -149,16 +148,4 @@ Aplikasi ini telah dideploy dan dapat diakses secara langsung melalui:
 
 **Sistem Optimasi Menu MBG** © 2026 • Dilindungi oleh Lisensi [MIT](https://opensource.org/licenses/MIT).
 
-<small>Dibuat dengan ❤️ oleh Mahasiswa Teknik Informatika UMC — Solusi Digital untuk Gizi Bangsa.</small>
-
 </div>
-
-```
-
-**Informasi Penting dalam README ini:**
-
-1.  [cite_start]**Badges:** Menambahkan Gunicorn sesuai diskusi sebelumnya[cite: 1].
-2.  [cite_start]**Alur Logika:** Menjelaskan secara teknis bagaimana program bekerja (Linear Programming)[cite: 1].
-3.  [cite_start]**Struktur Direktori:** Memetakan file sesuai dengan daftar file yang Anda lampirkan[cite: 1].
-4.  [cite_start]**Visualiasi Gizi:** Menjelaskan fitur perbandingan gizi baseline vs aktual yang ada di file `result.html`[cite: 1].
-5.  [cite_start]**Auto-Calculated RHS:** Menyoroti keunggulan fitur input otomatis yang ada pada `input.html`[cite: 1].
