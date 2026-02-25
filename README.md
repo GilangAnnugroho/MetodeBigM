@@ -16,8 +16,6 @@
   dengan pendekatan <i>Metode Big M (Simplex)</i> untuk pemenuhan gizi maksimal & biaya efisien.
 </p>
 
-[Fitur Utama](#-fitur-unggulan) • [Alur Sistem](#-alur-logika-optimasi) • [Teknologi](#-teknologi) • [Instalasi](#-panduan-instalasi) • [Demo](#-akses-demo)
-
 </div>
 
 ---
